@@ -1,3 +1,4 @@
+var Sketch = require("./external/sketch");
 // Helper methods used by the handwriting class.
 
 const kCrossWidth = 2;
@@ -29,23 +30,23 @@ const createSketch = (element, handwriting) => {
         handwriting._maybePushPoint([touch.ox, touch.oy]);
         handwriting._pushPoint([touch.x, touch.y]);
       }
-    }
+    },
   });
-}
+};
 
 const dottedLine = (x1, y1, x2, y2) => {
   const result = new createjs.Shape();
   result.graphics.setStrokeDash([kCrossWidth, kCrossWidth], 0);
-  result.graphics.setStrokeStyle(kCrossWidth)
-  result.graphics.beginStroke('#ccc');
+  result.graphics.setStrokeStyle(kCrossWidth);
+  result.graphics.beginStroke("#ccc");
   result.graphics.moveTo(x1, y1);
   result.graphics.lineTo(x2, y2);
   return result;
-}
+};
 
 const midpoint = (point1, point2) => {
   return [(point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2];
-}
+};
 
 const renderCross = (stage) => {
   const cross = new createjs.Container();
@@ -57,7 +58,7 @@ const renderCross = (stage) => {
   cross.addChild(dottedLine(0, height / 2, width, height / 2));
   cross.cache(0, 0, width, height);
   stage.addChild(cross);
-}
+};
 
 // Methods for actually executing drawing commands.
 
@@ -65,10 +66,10 @@ this.makemeahanzi.Handwriting = class Handwriting {
   constructor(element, callback, zoom) {
     this._callback = callback;
     this._zoom = zoom;
-
     createSketch(element, this);
     this._container = new createjs.Container();
-    this._stage = new createjs.Stage(element.find('canvas')[0]);
+    this._stage = new createjs.Stage(element.find("canvas")[0]);
+    console.log(element, Sketch, this._stage);
 
     renderCross(this._stage);
     this._stage.addChild(this._container);
@@ -83,15 +84,16 @@ this.makemeahanzi.Handwriting = class Handwriting {
     this._reset();
   }
   _distance(point1, point2) {
-    const diagonal = this._stage.canvas.width * this._stage.canvas.width +
-                     this._stage.canvas.height * this._stage.canvas.height;
+    const diagonal =
+      this._stage.canvas.width * this._stage.canvas.width +
+      this._stage.canvas.height * this._stage.canvas.height;
     const diff = [point1[0] - point2[0], point1[1] - point2[1]];
     return (diff[0] * diff[0] + diff[1] * diff[1]) / diagonal;
   }
   _draw(point1, point2, control) {
     const graphics = this._shape.graphics;
-    graphics.setStrokeStyle(this._width, 'round');
-    graphics.beginStroke('black');
+    graphics.setStrokeStyle(this._width, "round");
+    graphics.beginStroke("black");
     graphics.moveTo(point1[0], point1[1]);
     if (control) {
       graphics.curveTo(control[0], control[1], point2[0], point2[1]);
@@ -103,8 +105,12 @@ this.makemeahanzi.Handwriting = class Handwriting {
   _endStroke() {
     if (this._shape) {
       this._callback(this._stroke);
-      this._shape.cache(0, 0, this._stage.canvas.width,
-                        this._stage.canvas.height);
+      this._shape.cache(
+        0,
+        0,
+        this._stage.canvas.width,
+        this._stage.canvas.height
+      );
     }
     this._reset();
   }
@@ -144,9 +150,11 @@ this.makemeahanzi.Handwriting = class Handwriting {
   }
   _updateWidth(distance) {
     if (distance <= 0) return;
-    let offset = (Math.log(distance) + kOffset);
-    offset /= (offset > 0 ? kPositiveDecay : kNegativeDecay);
-    this._width = Math.max(Math.min(
-        this._width - offset, kMaxWidth), kMinWidth);
+    let offset = Math.log(distance) + kOffset;
+    offset /= offset > 0 ? kPositiveDecay : kNegativeDecay;
+    this._width = Math.max(
+      Math.min(this._width - offset, kMaxWidth),
+      kMinWidth
+    );
   }
-}
+};

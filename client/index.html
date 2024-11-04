@@ -1,12 +1,11 @@
 <head>
   <title>Make Me a Hanzi Demo</title>
   <meta name="viewport" content="
-      width=device-width, user-scalable=no, initial-scale=1">
+          width=device-width, user-scalable=no, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  {{> navbar}}
-  {{> report}}
-  {{> Template.dynamic template=route}}
+  {{> navbar}} {{> report}} {{> Template.dynamic template=route}}
 </body>
 
 <template name="navbar">
@@ -23,13 +22,11 @@
 </template>
 
 <template name="report">
-  <div id="modal" class="report modal fade" tabIndex="1"
-       data-backdrop="static">
+  <div id="modal" class="report modal fade" tabindex="1" data-backdrop="static">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"
-                  aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
           <h3 class="modal-title">Report an error</h3>
@@ -37,15 +34,15 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="email">Description:</label>
-            <textarea class="description form-control" rows="3" tabIndex="2"
-                      placeholder="Describe the problem that you found."
-             ></textarea>
+            <textarea class="description form-control" rows="3" tabindex="2"
+              placeholder="Describe the problem that you found."></textarea>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="submit btn btn-danger">Submit</button>
-          <button type="button" class="btn btn-primary"
-                  data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">
+            Cancel
+          </button>
           <div class="status"></div>
         </div>
       </div>

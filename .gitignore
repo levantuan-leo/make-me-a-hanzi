@@ -4,3 +4,5 @@
 .sass-cache
 .demeteorized
 stroke_caps
+node_modules
+packagelock.json

@@ -17,6 +17,16 @@ export default forwardRef(function Search(
   const handwriting = useRef(null);
   const [zoom, setZoom] = useState(1);
 
+  const handleClear = () => {
+    strokesVar.set([]);
+    handwriting.current.clear();
+  };
+
+  const handleUndo = () => {
+    strokesVar.pop();
+    handwriting.current.undo();
+  };
+
   useEffect(() => {
     const onRendered = function () {
       const element = rootRef.current.querySelector(".handwriting");
@@ -38,6 +48,10 @@ export default forwardRef(function Search(
       handwriting.current.set("callback", strokesVar.push);
   }, [strokesVar.get(), handwriting.current]);
 
+  useEffect(() => {
+    if (handwriting.current) handwriting.current.set("zoom", zoom);
+  }, [zoom, handwriting.current]);
+
   useImperativeHandle(ref, () => rootRef, [rootRef.current]);
 
   return (
@@ -51,8 +65,12 @@ export default forwardRef(function Search(
       >
         <div className="handwriting"></div>
         <div className="controls">
-          <a className="clear button">Clear</a>
-          <a className="undo button">Undo</a>
+          <a className="clear button" onClick={handleClear}>
+            Clear
+          </a>
+          <a className="undo button" onClick={handleUndo}>
+            Undo
+          </a>
         </div>
         <div className="output">
           {candidates.map((candidate) => (

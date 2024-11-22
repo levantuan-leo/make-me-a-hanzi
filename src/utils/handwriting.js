@@ -110,7 +110,6 @@ export class Handwriting {
     this._stage.update();
   }
   _endStroke() {
-    console.log("_endStroke", this);
     if (this._shape) {
       this._callback(this._stroke);
       this._shape.cache(

@@ -1,0 +1,61 @@
+#search {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 60px;
+}
+#search #wrapper {
+  display: inline-block;
+  overflow: hidden;
+  padding: 32px;
+  text-align: left;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-origin: 0 0 0;
+  -webkit-transform-origin: 0 0 0;
+}
+#search #wrapper .handwriting {
+  background-color: white;
+  height: 512px;
+  width: 512px;
+}
+#search #wrapper .controls .button {
+  background-color: white;
+  border: 2px solid #2c3e50;
+  font-size: 32px;
+  width: 50%;
+}
+#search #wrapper .output {
+  background-color: white;
+  clear: both;
+  margin-top: 96px;
+  height: 64px;
+}
+#search #wrapper .output .candidate {
+  border: 2px dotted lightgray;
+  font-size: 40px;
+  width: 64px;
+}
+#search #wrapper .controls .button,
+#search #wrapper .output .candidate {
+  box-sizing: border-box;
+  color: #2c3e50;
+  float: left;
+  height: 64px;
+  line-height: 60px;
+  margin: 0;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.no-touch #search #wrapper .controls .button:hover,
+.touch #search #wrapper .controls .button:active,
+.no-touch #search #wrapper .output .candidate:hover,
+.touch #search #wrapper .output .candidate:active {
+  background-color: #bdf;
+}

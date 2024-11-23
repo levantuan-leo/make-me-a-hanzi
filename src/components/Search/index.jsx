@@ -5,8 +5,9 @@ import {
   useRef,
   useState,
 } from "react";
-import "./style.css";
 import { getZoom } from "../../utils/search";
+import { isEmpty } from "lodash";
+import "./style.css";
 
 /* eslint-disable react/prop-types */
 export default forwardRef(function Search(
@@ -28,8 +29,8 @@ export default forwardRef(function Search(
   };
 
   useEffect(() => {
+    const element = rootRef.current.querySelector(".handwriting");
     const onRendered = function () {
-      const element = rootRef.current.querySelector(".handwriting");
       element.find = (selector) => element.querySelectorAll(selector);
       const callback = strokesVar.push;
       strokesVar.set([]);
@@ -40,7 +41,7 @@ export default forwardRef(function Search(
         zoom
       );
     };
-    onRendered();
+    if (isEmpty(element.children)) onRendered();
   }, []);
 
   useEffect(() => {

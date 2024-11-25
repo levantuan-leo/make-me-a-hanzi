@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import { getZoom } from "../../utils/search";
-import { isEmpty } from "lodash";
 import "./style.css";
 
 /* eslint-disable react/prop-types */
@@ -41,7 +40,7 @@ export default forwardRef(function Search(
         zoom
       );
     };
-    if (isEmpty(element.children)) onRendered();
+    if (!element.children?.length) onRendered();
   }, []);
 
   useEffect(() => {
@@ -75,13 +74,13 @@ export default forwardRef(function Search(
         </div>
         <div className="output">
           {candidates.map((candidate) => (
-            <a
+            <span
               key={candidate}
               className="candidate"
-              href={(candidate) => `#/codepoint/${candidate.charCodeAt(0)}`}
+              // href={(candidate) => `#/codepoint/${candidate.charCodeAt(0)}`}
             >
               {candidate}
-            </a>
+            </span>
           ))}
         </div>
       </div>

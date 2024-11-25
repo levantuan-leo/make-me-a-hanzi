@@ -18,8 +18,10 @@
 }
 #search #wrapper .handwriting {
   background-color: white;
-  height: 512px;
-  width: 512px;
+  /* height: 512px;
+  width: 512px; */
+  width: 1176px;
+  height: 320px;
 }
 #search #wrapper .controls .button {
   background-color: white;

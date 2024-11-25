@@ -1,18 +1,18 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import "./external/sketch";
-import "./external/easel";
-import "./external/polyfill";
+import * as createjs from "@createjs/easeljs";
+import Sketch from "sketch-js";
 // Helper methods used by the handwriting class.
+
+const THIN = 10;
 
 const kCrossWidth = 2;
 const kMinWidth = 6;
-const kMaxWidth = 10;
-const kOffset = 10;
+const kMaxWidth = 10 / THIN; // divided by 10 (default 10)
+const kOffset = 10 * THIN; // multiply by 10 (default 10)
 const kPositiveDecay = 16;
 const kNegativeDecay = 64;
 
-const Sketch = window.Sketch;
 const createSketch = (element, handwriting) => {
   let mousedown = false;
   Sketch.create({
@@ -75,7 +75,7 @@ export class Handwriting {
     this._container = new createjs.Container();
     this._stage = new createjs.Stage(element.find("canvas")[0]);
 
-    renderCross(this._stage);
+    // renderCross(this._stage);
     this._stage.addChild(this._container);
     this._reset();
   }
